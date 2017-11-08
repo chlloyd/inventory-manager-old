@@ -9,7 +9,7 @@
     - (Material UI Getting Started)[http://www.material-ui.com/#/get-started]
   - [ ] Models (Users, groups, roles)
   - [ ] Setup PWA
-  - [ ] Login page
+  - [ ] Login page [Material UI Login Page Tutorial](https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede)
   - [ ] Deploy to Heroku (or local install)
 2. Items
   - [ ] Models (Categories and items)
