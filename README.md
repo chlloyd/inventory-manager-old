@@ -2,7 +2,10 @@
 
 ### Todo List
 1. Authentication
-  - [ ] Provides mechanism for authentication. Login & User registration. Registration requires an administrator to be logged in to create a new user.
+  - [ ] Provides mechanism for authentication. Login & User registration. Registration requires an administrator to be logged in to create a new user. Uses GraphQL.
+  - Reading:
+    - (GraphQL Tutorial)[https://www.howtographql.com/basics/0-introduction/]
+    - (JS Stack Tutorial)[https://github.com/verekia/js-stack-from-scratch]
   - [ ] Models (Users, groups, roles)
   - [ ] Setup PWA
   - [ ] Login page
