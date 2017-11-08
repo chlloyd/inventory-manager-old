@@ -2,7 +2,7 @@
 
 ### Todo List
 1. Authentication
-  - Provides mechanism for authentication. Login & User registration. Registration requires an administrator to be logged in to create a new user.
+  - [ ] Provides mechanism for authentication. Login & User registration. Registration requires an administrator to be logged in to create a new user.
   - [ ] Models (Users, groups, roles)
   - [ ] Setup PWA
   - [ ] Login page
