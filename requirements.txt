@@ -1,3 +1,4 @@
 flask
 flask_script
 flask_sqlalchemy
+flask_migrate
