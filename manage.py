@@ -1,9 +1,13 @@
+import os
+
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
 from invmanager import create_app, db
 
-app = create_app()
+config_name = os.environ.get('INV_CONFIG', 'production')
+
+app = create_app(config_name=config_name)
 manager = Manager(app)
 migrate = Migrate(app, db)
 
