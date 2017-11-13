@@ -37,23 +37,36 @@ class Permission(Model):
     column_name = Column(db.String(30))
 
     __table_args__ = (
-        db.PrimaryKeyConstraint('table_name', 'type')
+        db.PrimaryKeyConstraint('table_name', 'perm_type'),
     )
 
     @staticmethod
     def create_permissions() -> bool:
-        """Creates permissions based upon
+        """Creates permissions based upon the tables in the database
+
+        Note that if there are any permissions already in the database then
+        no more will be created.
 
         Returns:
             bool - True for successful operation. False otherwise
 
+            Will return false if it didn't add any because there was
+            somethings already in the database.
+
         """
+
+        is_perms = Permission.query.count() > 0
+
+        if is_perms:
+            return False
+
         table_names = get_all_table_names()
-        permissions = [[Permission(table_name=table_name, perm_type=group_type)
-                        for table_name in table_names]
+        permissions = [Permission(table_name=table_name, perm_type=group_type)
+                       for table_name in table_names
                        for group_type in Permission.PERMISSION_TYPES]
 
         db.session.add_all(permissions)
+
         try:
             db.session.commit()
         except IntegrityError as e:
