@@ -2,6 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+Model = db.Model
+Column = db.Column
 
 
 def create_app():

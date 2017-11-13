@@ -1,4 +1,5 @@
-flask
-flask_script
-flask_sqlalchemy
-flask_migrate
+SQLAlchemy==1.1.13
+Flask==0.12.2
+Flask-Script==2.0.5
+Flask-SQLAlchemy==2.2
+Flask-Migrate==2.1.0
