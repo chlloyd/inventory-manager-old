@@ -1,1 +1,1 @@
-from invmanager.auth.models import Permission
+from invmanager.auth.models import Group, Permission

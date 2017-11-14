@@ -7,6 +7,11 @@ from invmanager.lib.tables import get_all_table_names
 
 logger = logging.getLogger()
 
+group_permission = db.Table('Group_permissions',
+                            Column('group_id', db.Integer, db.ForeignKey('Groups.id')),
+                            Column('permission_id', db.Integer, db.ForeignKey('Permissions.id'))
+                            )
+
 
 class Permission(Model):
     """
@@ -32,13 +37,10 @@ class Permission(Model):
 
     PERMISSION_TYPES = ['create', 'edit', 'delete']
 
+    id = Column(db.Integer, primary_key=True)
     table_name = Column(db.String(30), nullable=False)
     perm_type = Column(db.String(30), nullable=False)
     column_name = Column(db.String(30))
-
-    __table_args__ = (
-        db.PrimaryKeyConstraint('table_name', 'perm_type'),
-    )
 
     @staticmethod
     def create_permissions() -> bool:
@@ -48,7 +50,7 @@ class Permission(Model):
         no more will be created.
 
         Returns:
-            bool - True for successful operation. False otherwise
+            bool: True for successful operation. False otherwise
 
             Will return false if it didn't add any because there was
             somethings already in the database.
@@ -73,3 +75,32 @@ class Permission(Model):
             logging.exception("Tried to create permissions.", exc_info=e)
             return False
         return True
+
+
+class Group(Model):
+    """
+    A group is a collection of users who are assigned a certain role.
+
+    Default roles include:
+        super_admin - can do anything
+        admin - can perform many tasks but none involving operations that could cause permanent damage
+        user - all users are given this role by default.
+    """
+    __tablename__ = 'Groups'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+
+    permissions = db.relationship(Permission,
+                                  secondary=group_permission)
+
+    def add_permission(self, permission: Permission) -> None:
+        """
+        Args:
+            permission (Permission): Adds Permission to the group
+
+        Returns:
+            None
+
+        """
+        self.permissions.append(permission)
