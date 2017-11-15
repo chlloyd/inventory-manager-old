@@ -104,3 +104,14 @@ class Group(Model):
 
         """
         self.permissions.append(permission)
+
+    def remove_permission(self, permission: Permission) -> None:
+        """
+        Args:
+            permission (Permission): Removes Permission from the group
+
+        Returns:
+            None
+
+        """
+        self.permissions.remove(permission)

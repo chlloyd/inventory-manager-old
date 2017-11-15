@@ -43,3 +43,32 @@ class TestServer(TestCase):
         g.add_permission(p)
         db.session.commit()
         self.assertEqual(len(g.permissions), 1)
+
+    def test_Group_remove_permission(self):
+        """
+        First we add a permission to a group. Then see if removing it actually removes it
+
+        """
+        g = Group()
+
+        db.session.add(g)
+        db.session.commit()
+
+        self.assertEqual(len(g.permissions), 0)
+
+        p = Permission.query.filter_by(table_name='Groups', perm_type='create').first()
+
+        self.assertIsNotNone(p)
+        self.assertTrue(isinstance(p, Permission))
+
+        g.add_permission(p)
+
+        db.session.commit()
+
+        self.assertEqual(len(g.permissions), 1)
+
+        g.remove_permission(p)
+
+        db.session.commit()
+
+        self.assertEqual(len(g.permissions), 0)
