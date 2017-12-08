@@ -4,7 +4,7 @@ from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
 from invmanager import create_app, db
-from invmanager.models import Group, Permission
+from invmanager.models import Group, Permission, User
 
 config_name = os.environ.get('INV_CONFIG', 'production')
 
@@ -18,7 +18,8 @@ def make_shell_context():
         app=app,
         db=db,
         Group=Group,
-        Permission=Permission
+        Permission=Permission,
+        User=User
     )
 
 

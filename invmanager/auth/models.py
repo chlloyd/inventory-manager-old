@@ -1,16 +1,22 @@
 import logging
 
 from sqlalchemy.exc import IntegrityError
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from invmanager import db, Column, Model
 from invmanager.lib.tables import get_all_table_names
 
 logger = logging.getLogger()
 
-group_permission = db.Table('Group_permissions',
+group_permission = db.Table('Group_permissions', db.metadata,
                             Column('group_id', db.Integer, db.ForeignKey('Groups.id')),
                             Column('permission_id', db.Integer, db.ForeignKey('Permissions.id'))
                             )
+
+user_group = db.Table('User_groups', db.metadata,
+                      Column('user_id', db.Integer, db.ForeignKey('Users.id')),
+                      Column('groups_id', db.Integer, db.ForeignKey('Groups.id'))
+                      )
 
 
 class Permission(Model):
@@ -94,6 +100,9 @@ class Group(Model):
     permissions = db.relationship(Permission,
                                   secondary=group_permission)
 
+    users = db.relationship('User', secondary=user_group,
+                           back_populates="groups")
+
     def add_permission(self, permission: Permission) -> None:
         """
         Args:
@@ -115,3 +124,80 @@ class Group(Model):
 
         """
         self.permissions.remove(permission)
+
+
+class User(db.Model):
+    __tablename__ = 'Users'
+
+    id = Column(db.Integer, primary_key=True)
+    name = Column(db.String, nullable=False)
+    email = Column(db.String, unique=True, nullable=False)
+    password_hash = Column(db.String, nullable=False)
+
+    groups = db.relationship(Group, secondary=user_group,
+                             back_populates="users")
+
+    def __init__(self, *args, **kwargs):
+        super(User, self).__init__(*args, **kwargs)
+
+        # g = Group.query.filter_by(name='user').first()
+        # self.add_group(g)
+
+    @property
+    def password(self):
+        """
+
+        Raises:
+            AttributeError: You cannot access plain text password
+
+        """
+        raise AttributeError("Cannot access password")
+
+    @password.setter
+    def password(self, password: str):
+        """Set the password of the user.
+        Generates the hash and stores in database
+
+        Args:
+            password: The plain text password
+
+        Returns:
+            None
+
+        """
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        """Verify a password is equal to the hash in the database. Used for logging in.
+
+        Args:
+            password: plaintext password
+
+        Returns:
+            bool: True if password is equal.
+
+        """
+        return check_password_hash(self.password_hash, password)
+
+    def has_group(self, group:str):
+        """
+
+        Args:
+            group (str): The name of the group. E.g. 'user'
+
+        Returns:
+            None
+
+        Raises:
+
+
+        """
+        return group in self.groups
+
+    def add_group(self, g: Group):
+        if g is None:
+            raise TypeError("Group {g} is None".format(g=g))
+        self.groups.append(g)
+
+    def remove_group(self, g: Group):
+        self.groups.remove(g)

@@ -1,12 +1,10 @@
 from unittest import TestCase
 
-from flask import Flask
-
 from invmanager import create_app, db
-from invmanager.models import Group, Permission
+from invmanager.models import Group, Permission, User
 
 
-class TestServer(TestCase):
+class TestGroup(TestCase):
     def setUp(self):
         self.app = create_app('testing')
         self.context = self.app.app_context()
@@ -72,3 +70,82 @@ class TestServer(TestCase):
         db.session.commit()
 
         self.assertEqual(len(g.permissions), 0)
+
+
+class TestUser(TestCase):
+    def setUp(self):
+        self.app = create_app('testing')
+        self.context = self.app.app_context()
+        self.context.push()
+        db.create_all()
+
+        Permission.create_permissions()
+
+    def tearDown(self):
+        db.drop_all()
+        self.context.pop()
+
+    def test_user_authentication(self):
+        password = "password"
+
+        u = User()
+        u.name = "Test User"
+        u.password = password
+        u.email = "test@example.com"
+
+        db.session.add(u)
+        db.session.commit()
+
+        self.assertNotEqual(u.password_hash, password)
+
+        self.assertTrue(u.verify_password(password))
+
+    def test_user_get_password(self):
+        """Make sure getting a password raises Error
+        Returns:
+
+        """
+        u = User()
+        u.name = "Test User"
+        u.password = "password"
+        u.email = "test@example.com"
+
+        db.session.add(u)
+        db.session.commit()
+
+        with self.assertRaises(AttributeError):
+            _ = u.password
+
+    def test_user_add_group(self):
+        # u = User()
+        # u.name = "Test User"
+        # u.password = "password"
+        # u.email = "test@example.com"
+        #
+        # db.session.add(u)
+        # db.session.commit()
+        #
+        # # self.assertTrue(u.has_group('user'))
+        #
+        # g = Group.query.filter_by(name='user').first()
+        #
+        # u.add_group(g)
+        # self.assertTrue(u.has_group('user'))
+        pass
+
+    def test_user_remove_group(self):
+        # u = User()
+        # u.name = "Test User"
+        # u.password = "password"
+        # u.email = "test@example.com"
+        #
+        # db.session.add(u)
+        # db.session.commit()
+        #
+        # self.assertTrue(u.has_group('user'))
+        #
+        # g = Group.query.filter_by(name='user').first()
+        #
+        # u.remove_group(g)
+        # self.assertFalse(u.has_group('user'))
+        pass
