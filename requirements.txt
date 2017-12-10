@@ -1,6 +1,9 @@
+graphene
 werkzeug==0.12.2
-SQLAlchemy==1.1.13
+SQLAlchemy==1.1.15
 Flask==0.12.2
 Flask-Script==2.0.5
 Flask-SQLAlchemy==2.2
 Flask-Migrate==2.1.0
+graphene_sqlalchemy==2.0.0
+Flask-GraphQL==1.4.1

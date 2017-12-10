@@ -23,10 +23,16 @@ class Config(object):
 
     @staticmethod
     def init_app(app):
-        """
-        Method that is called to apply further configurations to the app.
+        """Method that is called to apply further configurations to the app.
+
         Called after configuration is passed to Flask and before web server
         is run. Can be used to set up logging.
+
+        Arguments:
+            app (Flask): Flask web server object
+
+        Returns:
+            None
         """
         pass
 
