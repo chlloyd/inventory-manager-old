@@ -1,9 +1,12 @@
 import logging
 
+from flask import current_app
+import jwt
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from invmanager import db, Column, Model
+from invmanager.auth.exceptions import AuthorisationError
 from invmanager.lib.tables import get_all_table_names
 
 logger = logging.getLogger()
@@ -201,3 +204,16 @@ class User(db.Model):
 
     def remove_group(self, g: Group):
         self.groups.remove(g)
+
+    @classmethod
+    def from_jwt(cls, jwt_token:str):
+        decoded = jwt.decode(jwt_token, key=current_app.config.get('SECRET_KEY'), verify=True, algorithms='HS256')
+
+        user_id = decoded.get('user_id', None)
+
+        if user_id is None:
+            raise AuthorisationError()
+
+        return User.query.get(user_id)
+
+
