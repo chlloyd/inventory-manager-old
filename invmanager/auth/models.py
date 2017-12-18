@@ -205,6 +205,15 @@ class User(db.Model):
     def remove_group(self, g: Group):
         self.groups.remove(g)
 
+    def _get_json_payload(self):
+        return {
+            'user_id': self.id
+        }
+
+    def generate_token(self):
+        return jwt.encode(self._get_json_payload(),
+                          key=current_app.config.get('SECRET_KEY'))
+
     @classmethod
     def from_jwt(cls, jwt_token:str):
         decoded = jwt.decode(jwt_token, key=current_app.config.get('SECRET_KEY'), verify=True, algorithms='HS256')
@@ -213,7 +222,5 @@ class User(db.Model):
 
         if user_id is None:
             raise AuthorisationError()
-
-        return User.query.get(user_id)
 
 

@@ -57,7 +57,16 @@ class Login(graphene.Mutation):
         password = graphene.String()
 
     def mutate(self, info, email, password):
-        print(info)
+        u = User.query.filter_by(email=email).first()
+
+        if u is not None:
+            if u.verify_password(password):
+                token = u.generate_token()
+                print(token)
+                info.context.session['token'] = token
+
+                return Login(user=u)
+        raise Exception("User / Password Combination")
 
 
 class CreateUser(graphene.Mutation):

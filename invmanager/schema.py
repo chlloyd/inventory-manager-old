@@ -11,4 +11,4 @@ class Mutation(AuthMutation, ObjectType):
     pass
 
 
-schema = Schema(query=Query)
+schema = Schema(query=Query, mutation=Mutation)
