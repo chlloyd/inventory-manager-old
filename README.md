@@ -18,6 +18,7 @@
   - [ ] Item & Category Pages
   - [ ] Graphs
   - [ ] HTML description builder
+  - [ ] Title and description translations to other languages. 
 3. Images
   - [ ] Different Cloud image stores
     - OneDrive
