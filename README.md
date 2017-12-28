@@ -51,3 +51,4 @@
   - Import Data
 - Marketing Emails
 - Backup
+- Franking/postage stamp printing
