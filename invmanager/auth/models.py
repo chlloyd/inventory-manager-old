@@ -1,8 +1,10 @@
 import logging
+import uuid
 
 from flask import current_app
 import jwt
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy_utils.types.uuid import UUIDType
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from invmanager import db, Column, Model
@@ -205,17 +207,27 @@ class User(db.Model):
     def remove_group(self, g: Group):
         self.groups.remove(g)
 
-    def _get_json_payload(self):
-        return {
-            'user_id': self.id
+    def generate_token(self):
+        token_id = uuid.uuid4()
+
+        # Add uuid to Token table
+
+        t = Token()
+        t.id = token_id
+        t.user_id = self.id
+        db.session.add(t)
+        db.session.commit()
+
+        payload = {
+            'user_id': self.id,
+            'token_id': token_id
         }
 
-    def generate_token(self):
-        return jwt.encode(self._get_json_payload(),
+        return jwt.encode(payload,
                           key=current_app.config.get('SECRET_KEY'))
 
     @classmethod
-    def from_jwt(cls, jwt_token:str):
+    def from_jwt(cls, jwt_token : str):
         decoded = jwt.decode(jwt_token, key=current_app.config.get('SECRET_KEY'), verify=True, algorithms='HS256')
 
         user_id = decoded.get('user_id', None)
@@ -225,3 +237,7 @@ class User(db.Model):
 
         return User.query.get(user_id)
 
+
+class Token(Model):
+    id = Column(UUIDType(), primary_key=True)
+    user_id = Column(db.ForeignKey(User.id), nullable=False)
