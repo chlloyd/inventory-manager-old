@@ -142,6 +142,8 @@ class User(db.Model):
     groups = db.relationship(Group, secondary=user_group,
                              back_populates="users")
 
+    tokens = db.relationship('Token', back_populates='user')
+
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
 
@@ -220,11 +222,20 @@ class User(db.Model):
 
         payload = {
             'user_id': self.id,
-            'token_id': token_id
+            'token_id': str(token_id)
         }
 
         return jwt.encode(payload,
                           key=current_app.config.get('SECRET_KEY'))
+
+    def revoke_token(self, token_id : str):
+        t = Token.query.get(token_id)
+        db.session.remove(t)
+        try:
+            db.session.commit()
+            return True
+        except IntegrityError:
+            return False
 
     @classmethod
     def from_jwt(cls, jwt_token : str):
@@ -241,3 +252,5 @@ class User(db.Model):
 class Token(Model):
     id = Column(UUIDType(), primary_key=True)
     user_id = Column(db.ForeignKey(User.id), nullable=False)
+
+    user = db.relationship(User, back_populates="tokens")

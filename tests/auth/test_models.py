@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, skip
 
 from invmanager import create_app, db
 from invmanager.models import Group, Permission, User
@@ -116,6 +116,7 @@ class TestUser(TestCase):
         with self.assertRaises(AttributeError):
             _ = u.password
 
+    @skip("Not implemented")
     def test_user_add_group(self):
         # u = User()
         # u.name = "Test User"
@@ -133,6 +134,7 @@ class TestUser(TestCase):
         # self.assertTrue(u.has_group('user'))
         pass
 
+    @skip("Not implemented")
     def test_user_remove_group(self):
         # u = User()
         # u.name = "Test User"
