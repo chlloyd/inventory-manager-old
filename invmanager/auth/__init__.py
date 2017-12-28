@@ -7,7 +7,6 @@ GraphQL Queries & Mutations
 
 - Login - Mutation to login a user.
   - Requires a email & password.
-  - Return a JWT token
 - Register User - Register a user.
   - Requires create user permission
   - Check current JWT token.
@@ -25,5 +24,15 @@ GraphQL Queries & Mutations
   - Requires a group & permission
   - Requires delete group_permission permission.
 - (Custom Permissions ?)
+
+Examples:
+    # Login Mutation
+    mutation LogIn($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+        user {
+          name
+        }
+      }
+    }
 
 """

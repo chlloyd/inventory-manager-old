@@ -223,4 +223,5 @@ class User(db.Model):
         if user_id is None:
             raise AuthorisationError()
 
+        return User.query.get(user_id)
 

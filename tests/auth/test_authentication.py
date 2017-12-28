@@ -39,6 +39,6 @@ class TestGroup(TestCase):
         db.session.add(u)
         db.session.commit()
 
-        token = jwt.encode({'user_id': 1}, self.app.config['SECRET_KEY'])
+        token = jwt.encode({'user_id': u.id}, self.app.config['SECRET_KEY'])
         u = User.from_jwt(token)
         self.assertIsInstance(u, User)

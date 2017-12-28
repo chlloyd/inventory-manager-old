@@ -23,6 +23,7 @@ class TestGroup(unittest.TestCase):
         db.drop_all()
         self.context.pop()
 
+    @unittest.skip("Not implemented at the moment")
     def test_register_schema(self):
         pass
 
@@ -38,16 +39,15 @@ class TestGroup(unittest.TestCase):
         db.session.commit()
 
         login_mutation = '''
-        mutation login {
-          login(email: "{1}", password: "{2}") {
+        mutation LogIn($email: String!, $password: String!) {
+          login(email: $email, password: $password) {
             user {
-              id
-              email
+              name
             }
           }
         }
         '''
-        email = 'test@a.com' # different email
+        email = 'test@a.com' # wrong email
         password = 'testpassword'
 
         login = self.graphql.execute(
@@ -58,6 +58,6 @@ class TestGroup(unittest.TestCase):
             }
         )
 
-        print(login)
-
-        self.assertIsNotNone(login.get('errors'))
+        errors = login.get('errors')
+        self.assertIsInstance(errors, list)
+        #TODO
