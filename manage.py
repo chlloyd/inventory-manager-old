@@ -4,7 +4,7 @@ from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
 from invmanager import create_app, db
-from invmanager.models import Group, Permission, User
+from invmanager.models import Group, Permission, User, group_permission, user_group
 
 config_name = os.environ.get('INV_CONFIG', 'production')
 
