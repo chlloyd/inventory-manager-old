@@ -137,20 +137,19 @@ class TestUser(TestCase):
         self.assertTrue(u.has_group('user'))
         self.assertTrue(u.has_group('admin'))
 
-    @skip("Not implemented")
     def test_user_remove_group(self):
-        # u = User()
-        # u.name = "Test User"
-        # u.password = "password"
-        # u.email = "test@example.com"
-        #
-        # db.session.add(u)
-        # db.session.commit()
-        #
-        # self.assertTrue(u.has_group('user'))
-        #
-        # g = Group.query.filter_by(name='user').first()
-        #
-        # u.remove_group(g)
-        # self.assertFalse(u.has_group('user'))
-        pass
+        u = User()
+        u.name = "Test User"
+        u.password = "password"
+        u.email = "test@example.com"
+
+        db.session.add(u)
+        db.session.commit()
+
+        self.assertTrue(u.has_group('user'))
+
+        g = Group.query.filter_by(name='user').first()
+
+        u.remove_group(g)
+        db.session.commit()
+        self.assertFalse(u.has_group('user'))
