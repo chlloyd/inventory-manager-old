@@ -5,7 +5,7 @@ import uuid
 import jwt
 
 from invmanager import create_app, db
-from invmanager.models import Permission, User
+from invmanager.models import Group, Permission, User
 from invmanager.auth.authentication import check_token, revoke_token
 from invmanager.auth.exceptions import AuthorisationError
 
@@ -18,6 +18,8 @@ class TestAuthentication(TestCase):
         db.create_all()
 
         Permission.create_permissions()
+        Group.create_default_groups()
+
 
         self.user = User()
         self.user.name = "Test Name"

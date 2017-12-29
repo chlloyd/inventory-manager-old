@@ -80,6 +80,7 @@ class TestUser(TestCase):
         db.create_all()
 
         Permission.create_permissions()
+        Group.create_default_groups()
 
     def tearDown(self):
         db.drop_all()
@@ -116,23 +117,25 @@ class TestUser(TestCase):
         with self.assertRaises(AttributeError):
             _ = u.password
 
-    @skip("Not implemented")
     def test_user_add_group(self):
-        # u = User()
-        # u.name = "Test User"
-        # u.password = "password"
-        # u.email = "test@example.com"
-        #
-        # db.session.add(u)
-        # db.session.commit()
-        #
-        # # self.assertTrue(u.has_group('user'))
-        #
-        # g = Group.query.filter_by(name='user').first()
-        #
-        # u.add_group(g)
-        # self.assertTrue(u.has_group('user'))
-        pass
+        u = User()
+        u.name = "Test User"
+        u.password = "password"
+        u.email = "test@example.com"
+
+        db.session.add(u)
+        db.session.commit()
+
+        self.assertTrue(u.has_group('user'))
+
+        g = Group.query.filter_by(name='admin').first()
+
+        self.assertIsNotNone(g)
+
+        u.add_group(g)
+        db.session.commit()
+        self.assertTrue(u.has_group('user'))
+        self.assertTrue(u.has_group('admin'))
 
     @skip("Not implemented")
     def test_user_remove_group(self):

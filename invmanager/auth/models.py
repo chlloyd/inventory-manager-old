@@ -131,6 +131,15 @@ class Group(Model):
         """
         self.permissions.remove(permission)
 
+    @staticmethod
+    def create_default_groups():
+        for group in ['user', 'superuser', 'admin']:
+            g = Group()
+            g.name = group
+            db.session.add(g)
+
+        db.session.commit()
+
 
 class User(db.Model):
     __tablename__ = 'Users'
@@ -148,8 +157,9 @@ class User(db.Model):
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
 
-        # g = Group.query.filter_by(name='user').first()
-        # self.add_group(g)
+        if not self.groups:
+            g = Group.query.filter_by(name='user').first()
+            self.add_group(g)
 
     @property
     def password(self):
@@ -200,7 +210,9 @@ class User(db.Model):
 
 
         """
-        return group in self.groups
+        g = Group.query.filter_by(name=group).first()
+
+        return g in self.groups
 
     def add_group(self, g: Group):
         if g is None:
