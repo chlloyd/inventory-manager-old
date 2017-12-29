@@ -11,7 +11,8 @@ def check_token(token: bytes) -> User:
 
     Checks its hasn't expired. Performed by pyJWT
     """
-    decoded = jwt.decode(token, verify=True, key=current_app.config.get('SECRET_KEY'))
+    decoded = jwt.decode(token, verify=True, key=current_app.config.get('SECRET_KEY'),
+                         verify_exp=True)
 
     if 'token_id' not in decoded:
         raise jwt.InvalidTokenError()

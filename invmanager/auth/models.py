@@ -229,8 +229,9 @@ class User(db.Model):
             'exp': datetime.utcnow() + timedelta(seconds=token_expiry)
         }
 
+
         return jwt.encode(payload,
-                          key=current_app.config.get('SECRET_KEY'))
+                          key=current_app.config['SECRET_KEY'])
 
 
 class Token(Model):

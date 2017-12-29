@@ -95,23 +95,20 @@ class TestAuthentication(TestCase):
         self.assertEqual(len(self.user.tokens), 0)  # Token should no longer exist
 
     def test_expired_token(self):
-        self.app.config['TOKEN_EXPIRY'] = 2 * 60 * 60  # Set token to expire in 2 hours
+        self.app.config['TOKEN_EXPIRY'] = 60  # Set token to expire in 1 minute
 
-
-        mocked_return_value = datetime.datetime.utcnow() - datetime.timedelta(hours=3, seconds=1)
+        mocked_return_value = datetime.datetime.utcnow() - datetime.timedelta(hours=5)
         self.assertIsInstance(mocked_return_value, datetime.datetime)
-        with mock.patch('datetime.datetime') as datetime_mock:
-            # Set time to 3 hours so token has expired
+
+        with mock.patch('invmanager.auth.models.datetime') as datetime_mock:
+            # Set time to 5 hours behinc so token has expired
 
             datetime_mock.utcnow.return_value = mocked_return_value
-            print("Mocked current time: ", datetime.datetime.utcnow())
-            print("Expiry in seconds: ", self.app.config['TOKEN_EXPIRY'])
 
             token = self.user.generate_token()
 
             decoded_token = jwt.decode(token, verify=False)
             expiry = decoded_token['exp']
-            print(token)
 
         with self.assertRaises(jwt.ExpiredSignature):
             check_token(token)
