@@ -6,7 +6,7 @@ import jwt
 
 from invmanager import create_app, db
 from invmanager.models import Permission, User
-from invmanager.auth.authentication import check_token
+from invmanager.auth.authentication import check_token, revoke_token
 from invmanager.auth.exceptions import AuthorisationError
 
 
@@ -67,9 +67,32 @@ class TestAuthentication(TestCase):
         u = check_token(token)
         self.assertIsInstance(u, User)
 
-    @skip("Not Implemented")
-    def revoke_jwt(self):
-        pass
+    def test_revoke_jwt(self):
+        """
+        Test a non existent token
+
+        Test that revoking a token means that you cannot be authenticated.
+        """
+
+        self.assertFalse(revoke_token(uuid.uuid4())) # Random UUID that wont be in DB
+
+        self.assertEqual(len(self.user.tokens), 0)
+
+        token = self.user.generate_token()
+        token_id = jwt.decode(token, verify=False)['token_id']
+
+        # Test that the token will authenticate a user
+        u = check_token(token)
+        self.assertIsInstance(u, User)
+
+        self.assertEqual(len(self.user.tokens), 1)
+
+        revoke_token(token_id)
+
+        with self.assertRaises(AuthorisationError):
+            check_token(token)
+
+        self.assertEqual(len(self.user.tokens), 0)  # Token should no longer exist
 
     def test_expired_token(self):
         self.app.config['TOKEN_EXPIRY'] = 2 * 60 * 60  # Set token to expire in 2 hours

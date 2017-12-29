@@ -1,7 +1,9 @@
 from flask import current_app
 import jwt
+from sqlalchemy.exc import IntegrityError
 
-from invmanager.auth.models import User, Token
+from invmanager.auth.exceptions import AuthorisationError
+from invmanager.auth.models import User, Token, db
 
 
 def check_token(token: bytes) -> User:
@@ -18,5 +20,29 @@ def check_token(token: bytes) -> User:
 
     t = Token.query.get(token_id)
 
-    if t is not None:
-        return t.user
+    if t is None:
+        raise AuthorisationError("Invalid Token")
+    return t.user
+
+
+def revoke_token(token_id : str):
+    """Stop a JWT token from authenticating.
+
+    Args:
+        token_id (str): The tokens token_id field
+
+    Returns:
+        bool: True if revoking was successful. False if it was unsuccessful or didn't exist
+
+    """
+    t = Token.query.get(token_id)
+
+    if t is None:
+        return False
+    db.session.delete(t)
+
+    try:
+        db.session.commit()
+        return True
+    except IntegrityError:
+        return False

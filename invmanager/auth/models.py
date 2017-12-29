@@ -232,15 +232,6 @@ class User(db.Model):
         return jwt.encode(payload,
                           key=current_app.config.get('SECRET_KEY'))
 
-    def revoke_token(self, token_id : str):
-        t = Token.query.get(token_id)
-        db.session.remove(t)
-        try:
-            db.session.commit()
-            return True
-        except IntegrityError:
-            return False
-
 
 class Token(Model):
     id = Column(UUIDType(), primary_key=True)
