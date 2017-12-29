@@ -1,14 +1,16 @@
-from unittest import TestCase, skip
+import datetime
+from unittest import TestCase, mock, skip
 import uuid
 
 import jwt
 
 from invmanager import create_app, db
 from invmanager.models import Permission, User
+from invmanager.auth.authentication import check_token
 from invmanager.auth.exceptions import AuthorisationError
 
 
-class TestGroup(TestCase):
+class TestAuthentication(TestCase):
     def setUp(self):
         self.app = create_app('testing')
         self.context = self.app.app_context()
@@ -53,18 +55,40 @@ class TestGroup(TestCase):
     def test_user_from_jwt(self):
         token = jwt.encode({}, self.app.config['SECRET_KEY'])
 
-        with self.assertRaises(AuthorisationError): # A malformed JWT will throw Authorisation error.
-            u = User.from_jwt(token)
+        with self.assertRaises(jwt.InvalidTokenError): # A malformed JWT will throw Authorisation error.
+            check_token(token)
 
         token = jwt.encode({'user_id': 2}, self.app.config['SECRET_KEY'])
 
-        u = User.from_jwt(token)
-        self.assertIsNone(u) # If user is not in DB then None is returned.
+        with self.assertRaises(jwt.InvalidTokenError):
+            check_token(token)
 
-        token = jwt.encode({'user_id': self.user.id}, self.app.config['SECRET_KEY'])
-        u = User.from_jwt(token)
+        token = self.user.generate_token()
+        u = check_token(token)
         self.assertIsInstance(u, User)
 
     @skip("Not Implemented")
     def revoke_jwt(self):
         pass
+
+    def test_expired_token(self):
+        self.app.config['TOKEN_EXPIRY'] = 2 * 60 * 60  # Set token to expire in 2 hours
+
+
+        mocked_return_value = datetime.datetime.utcnow() - datetime.timedelta(hours=3, seconds=1)
+        self.assertIsInstance(mocked_return_value, datetime.datetime)
+        with mock.patch('datetime.datetime') as datetime_mock:
+            # Set time to 3 hours so token has expired
+
+            datetime_mock.utcnow.return_value = mocked_return_value
+            print("Mocked current time: ", datetime.datetime.utcnow())
+            print("Expiry in seconds: ", self.app.config['TOKEN_EXPIRY'])
+
+            token = self.user.generate_token()
+
+            decoded_token = jwt.decode(token, verify=False)
+            expiry = decoded_token['exp']
+            print(token)
+
+        with self.assertRaises(jwt.ExpiredSignature):
+            check_token(token)

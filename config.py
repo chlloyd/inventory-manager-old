@@ -21,6 +21,11 @@ class Config(object):
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    """
+    The amount of time a token should be valid for
+    """
+    TOKEN_EXPIRY = 2 * 60 * 60
+
     @staticmethod
     def init_app(app):
         """Method that is called to apply further configurations to the app.

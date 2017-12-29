@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import logging
 import uuid
 
@@ -220,9 +221,12 @@ class User(db.Model):
         db.session.add(t)
         db.session.commit()
 
+        token_expiry = current_app.config['TOKEN_EXPIRY']
+
         payload = {
             'user_id': self.id,
-            'token_id': str(token_id)
+            'token_id': str(token_id),
+            'exp': datetime.utcnow() + timedelta(seconds=token_expiry)
         }
 
         return jwt.encode(payload,
@@ -236,17 +240,6 @@ class User(db.Model):
             return True
         except IntegrityError:
             return False
-
-    @classmethod
-    def from_jwt(cls, jwt_token : str):
-        decoded = jwt.decode(jwt_token, key=current_app.config.get('SECRET_KEY'), verify=True, algorithms='HS256')
-
-        user_id = decoded.get('user_id', None)
-
-        if user_id is None:
-            raise AuthorisationError()
-
-        return User.query.get(user_id)
 
 
 class Token(Model):
