@@ -1,6 +1,5 @@
 from flask import current_app
 import jwt
-from sqlalchemy.exc import IntegrityError
 
 from invmanager.auth.exceptions import AuthorisationError
 from invmanager.auth.models import User, Token, db
@@ -40,10 +39,7 @@ def revoke_token(token_id : str):
 
     if t is None:
         return False
-    db.session.delete(t)
 
-    try:
-        db.session.commit()
-        return True
-    except IntegrityError:
-        return False
+    db.session.delete(t)
+    db.session.commit()
+    return True

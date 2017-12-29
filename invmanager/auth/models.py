@@ -69,23 +69,21 @@ class Permission(Model):
 
         """
 
-        is_perms = Permission.query.count() > 0
-
-        if is_perms:
-            return False
-
         table_names = get_all_table_names()
-        permissions = [Permission(table_name=table_name, perm_type=group_type)
-                       for table_name in table_names
-                       for group_type in Permission.PERMISSION_TYPES]
 
-        db.session.add_all(permissions)
+        for table_name in table_names:
+            for group_type in Permission.PERMISSION_TYPES:
+                p = Permission()
+                p.table_name = table_name
+                p.perm_type = group_type
 
-        try:
-            db.session.commit()
-        except IntegrityError as e:
-            logging.exception("Tried to create permissions.", exc_info=e)
-            return False
+                if not db.session.query(
+                    Permission.query.filter_by(
+                        table_name=table_name,
+                        perm_type=group_type).exists()).scalar():
+                    db.session.add(p)
+
+        db.session.commit()
         return True
 
 

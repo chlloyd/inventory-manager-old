@@ -128,6 +128,9 @@ class TestUser(TestCase):
 
         self.assertTrue(u.has_group('user'))
 
+        with self.assertRaises(TypeError):
+            u.add_group(None)
+
         g = Group.query.filter_by(name='admin').first()
 
         self.assertIsNotNone(g)

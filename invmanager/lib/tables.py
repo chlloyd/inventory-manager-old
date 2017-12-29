@@ -1,6 +1,6 @@
 from invmanager import db
 
-def get_all_table_names(ignored_tables=['alembic_version', 'sqlite_master']) -> list:
+def get_all_table_names(ignored_tables=None) -> list:
     """
 
     Args:
@@ -11,6 +11,8 @@ def get_all_table_names(ignored_tables=['alembic_version', 'sqlite_master']) -> 
         list[str] - A list of all the tables in the tables
 
     """
+    if ignored_tables is None:
+        ignored_tables = ['alembic_version', 'sqlite_master']
     table_names = db.engine.table_names()
     assert isinstance(table_names, list)
 

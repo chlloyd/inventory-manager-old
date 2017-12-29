@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from invmanager import create_app, db
+from invmanager.lib.tables import get_all_table_names
 from invmanager.models import Permission
 
 
@@ -26,7 +27,20 @@ class TestTablesLibrary(TestCase):
 
         # Check that calling multiple times does not cause more permissions
 
-        self.assertFalse(Permission.create_permissions())
+        self.assertTrue(Permission.create_permissions())
         perms_length2 = Permission.query.count()
 
         self.assertEqual(perms_length, perms_length2)
+
+    def test_get_all_tables(self):
+        tables = get_all_table_names()
+
+        self.assertGreater(len(tables), 0)
+
+        table_name = tables[0]
+
+        self.assertIn(table_name, tables)
+
+        new_tables = get_all_table_names(ignored_tables=[table_name])
+
+        self.assertNotIn(table_name, new_tables)
