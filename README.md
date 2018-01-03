@@ -8,8 +8,8 @@
     - (JS Stack Tutorial)[https://github.com/verekia/js-stack-from-scratch]
     - (Material UI Getting Started)[http://www.material-ui.com/#/get-started]
   - [ ] Models (Users, groups, roles)
-  - [ ] Setup PWA
-  - [ ] Login page
+  - [x] Setup PWA
+  - [x] Login page
   - [ ] Deploy to Heroku (or local install)
 2. Items
   - [ ] Models (Categories and items)
