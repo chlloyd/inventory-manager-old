@@ -26,6 +26,13 @@ class Config(object):
     """
     TOKEN_EXPIRY = 2 * 60 * 60
 
+    """
+    The method to which authentication should take place.
+
+    Either 'COOKIE' or 'HEADER'
+    """
+    AUTH_METHOD = 'HEADER'
+
     @staticmethod
     def init_app(app):
         """Method that is called to apply further configurations to the app.
@@ -52,6 +59,13 @@ class DevelopmentConfig(Config):
                                                   'data-dev.sqlite'))
 
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+    """
+    GraphiQL wont let us put an Authorization header in each AJAX
+    request so we must authenticate with cookies which will get
+    passed with each
+    """
+    AUTH_METHOD = 'COOKIE'
 
 
 class TestConfig(Config):

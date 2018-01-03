@@ -1,8 +1,45 @@
-from flask import current_app
+from abc import abstractmethod
+
+from flask import current_app, Request, Response
 import jwt
 
 from invmanager.auth.exceptions import AuthorisationError
 from invmanager.auth.models import User, Token, db
+
+
+class AuthMethod:
+    """
+    Base Class of object that will allow for multiple methods of authentication to be used depending on
+    the type of config.
+
+    For example to use GraphiQL, we require that a cookie method be taken so that cookie is passed on each AJAX request.
+
+    But in production, we may want to use an Authorization Header.
+    """
+
+    @abstractmethod
+    def get_token(self, request: Request) -> bytes:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def set_token(self, response: Response, token: bytes):
+        raise NotImplementedError()
+
+
+class CookieAuth(AuthMethod):
+    def get_token(self, request: Request) -> bytes:
+        return request.cookies.get('token')
+
+    def set_token(self, response: Response, token: bytes):
+        response.set_cookie('token', token)
+
+
+class AuthHeader(AuthMethod):
+    def get_token(self, request: Request) -> bytes:
+        return request.headers.get('Authorization')
+
+    def set_token(self, response: Response, token: bytes):
+        response.headers.set('Authorization', token)
 
 
 def check_token(token: bytes) -> User:

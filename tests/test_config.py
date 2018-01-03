@@ -17,6 +17,8 @@ class TestServer(TestCase):
         self.assertFalse(config.get('DEBUG'))
         self.assertFalse(config.get('TESTING'))
 
+        self.assertEqual(config.get('AUTH_METHOD'), 'HEADER')
+
         context.pop()
 
     def test_config_development(self):
@@ -30,6 +32,8 @@ class TestServer(TestCase):
         self.assertTrue(config.get('DEBUG'))
         self.assertFalse(config.get('TESTING'))
 
+        self.assertEqual(config.get('AUTH_METHOD'), 'COOKIE')
+
         context.pop()
 
     def test_config_testing(self):
@@ -42,5 +46,7 @@ class TestServer(TestCase):
 
         self.assertFalse(config.get('DEBUG'))
         self.assertTrue(config.get('TESTING'))
+
+        self.assertEqual(config.get('AUTH_METHOD'), 'HEADER')
 
         context.pop()
