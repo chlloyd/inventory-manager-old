@@ -4,12 +4,10 @@ import uuid
 
 from flask import current_app
 import jwt
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy_utils.types.uuid import UUIDType
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from invmanager import db, Column, Model
-from invmanager.auth.exceptions import AuthorisationError
 from invmanager.lib.tables import get_all_table_names
 
 logger = logging.getLogger()

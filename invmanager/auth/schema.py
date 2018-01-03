@@ -1,4 +1,3 @@
-from flask import request
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
 

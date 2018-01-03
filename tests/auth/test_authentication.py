@@ -111,6 +111,7 @@ class TestAuthentication(TestCase):
 
             decoded_token = jwt.decode(token, verify=False)
             expiry = decoded_token['exp']
+            self.assertLess(expiry, datetime.datetime.utcnow().timestamp())
 
         with self.assertRaises(jwt.ExpiredSignature):
             check_token(token)
