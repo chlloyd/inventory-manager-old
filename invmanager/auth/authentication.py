@@ -41,6 +41,27 @@ class AuthHeader(AuthMethod):
     def set_token(self, response: Response, token: bytes):
         response.headers.set('Authorization', token)
 
+_auth_methods = {
+    'COOKIE': CookieAuth,
+    'HEADER': AuthHeader,
+}
+
+
+def get_token(request : Request) -> bytes:
+    method = current_app.config.get('AUTH_METHOD')
+
+    method = _auth_methods[method]
+
+    return method().get_token(request)
+
+
+def set_token(response: Response, token: bytes) -> None:
+    method = current_app.config.get('AUTH_METHOD')
+
+    method = _auth_methods[method]
+
+    return method().set_token(response, token)
+
 
 def check_token(token: bytes) -> User:
     """Checks a token from a request

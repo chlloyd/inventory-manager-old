@@ -1,6 +1,9 @@
+from flask import request
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
 
+from .authentication import check_token, get_token, set_token
+from .decorators import after_request
 from .exceptions import AuthorisationError
 from .models import User, db
 
@@ -18,13 +21,15 @@ def create_user(name, email, password):
 
 
 def get_user(info):
-    token = info.context.session.get('token')
+    token = get_token(info.context)
 
     if not token:
         return
 
-    id = 1  # TODO JWT STUFF
-    user = User.query.get(id)
+    user = check_token(token)
+    if user is None:
+        pass
+
     return user
 
 
@@ -45,6 +50,8 @@ class AuthQuery(graphene.ObjectType):
         if user is None:
             raise AuthorisationError("Incorrect username/password combination")
 
+        return user
+
     def resolve_users(self, info):
         return User.query.all()
 
@@ -62,8 +69,10 @@ class Login(graphene.Mutation):
         if u is not None:
             if u.verify_password(password):
                 token = u.generate_token()
-                print(token)
-                info.context.session['token'] = token
+
+                @after_request
+                def defer_set_token(response):
+                    set_token(response, token)
 
                 return Login(user=u)
         raise Exception("User / Password Combination")
