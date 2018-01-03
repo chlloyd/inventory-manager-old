@@ -19,11 +19,11 @@ class AuthMethod:
 
     @abstractmethod
     def get_token(self, request: Request) -> bytes:
-        raise NotImplementedError()
+        raise NotImplementedError()  # pragma: no cover
 
     @abstractmethod
     def set_token(self, response: Response, token: bytes):
-        raise NotImplementedError()
+        raise NotImplementedError()  # pragma: no cover
 
 
 class CookieAuth(AuthMethod):

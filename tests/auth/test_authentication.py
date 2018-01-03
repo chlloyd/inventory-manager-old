@@ -1,12 +1,13 @@
 import datetime
-from unittest import TestCase, mock, skip
+from unittest import TestCase, mock
 import uuid
 
+from flask import Request, Response
 import jwt
 
 from invmanager import create_app, db
 from invmanager.models import Group, Permission, User
-from invmanager.auth.authentication import check_token, revoke_token
+from invmanager.auth.authentication import check_token, revoke_token, get_token, set_token
 from invmanager.auth.exceptions import AuthorisationError
 
 
@@ -19,7 +20,6 @@ class TestAuthentication(TestCase):
 
         Permission.create_permissions()
         Group.create_default_groups()
-
 
         self.user = User()
         self.user.name = "Test Name"
@@ -114,3 +114,90 @@ class TestAuthentication(TestCase):
 
         with self.assertRaises(jwt.ExpiredSignature):
             check_token(token)
+
+
+class TestCookieAuthMethods(TestCase):
+    def setUp(self):
+        self.app = create_app('development')
+        self.context = self.app.app_context()
+        self.context.push()
+        db.create_all()
+
+        Permission.create_permissions()
+        Group.create_default_groups()
+
+        self.user = User()
+        self.user.name = "Test Name"
+        self.user.email = "test@example.com"
+        self.user.password = "test"
+
+        db.session.add(self.user)
+        db.session.commit()
+
+    def tearDown(self):
+        db.drop_all()
+        self.context.pop()
+
+    def test_get_cookie(self):
+        token = self.user.generate_token()
+
+        request = Request({})
+
+        request.cookies = {'token': token}
+
+        t = get_token(request)
+
+        self.assertEqual(t, token)
+
+    def test_set_cookie(self):
+        token = self.user.generate_token()
+
+        response = Response()
+        set_token(response,token)
+
+        self.assertIn('Set-Cookie', response.headers)
+        self.assertIn(token.decode('utf8'), response.headers.get('Set-Cookie'))
+
+
+class TestHeaderAuthMethod(TestCase):
+    def setUp(self):
+        self.app = create_app('testing')
+        self.context = self.app.app_context()
+        self.context.push()
+        db.create_all()
+
+        Permission.create_permissions()
+        Group.create_default_groups()
+
+        self.user = User()
+        self.user.name = "Test Name"
+        self.user.email = "test@example.com"
+        self.user.password = "test"
+
+        db.session.add(self.user)
+        db.session.commit()
+
+    def tearDown(self):
+        db.drop_all()
+        self.context.pop()
+
+    def test_get_cookie(self):
+        token = self.user.generate_token()
+
+        request = Request({'HTTP_AUTHORIZATION': token})
+        # request.headers.extend({'Authorization': token})
+
+        t = get_token(request)
+
+        self.assertEqual(bytes(t, encoding='utf8'), token)
+
+    def test_set_cookie(self):
+        token = self.user.generate_token()
+
+        response = Response()
+        set_token(response,token)
+
+        t = response.headers.get('Authorization')
+
+        self.assertIn('Authorization', response.headers)
+        self.assertEqual(bytes(t, encoding='utf8'), token)
