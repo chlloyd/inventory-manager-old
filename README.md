@@ -7,7 +7,7 @@
     - (GraphQL Tutorial)[https://www.howtographql.com/basics/0-introduction/]
     - (JS Stack Tutorial)[https://github.com/verekia/js-stack-from-scratch]
     - (Material UI Getting Started)[http://www.material-ui.com/#/get-started]
-  - [ ] Models (Users, groups, roles)
+  - [x] Models (Users, groups, roles)
   - [ ] Setup PWA
   - [ ] Login page
   - [ ] Deploy to Heroku (or local install)
