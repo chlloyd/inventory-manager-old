@@ -1,4 +1,3 @@
-from types import FunctionType
 from unittest import TestCase
 
 from flask import after_this_request

@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_graphql import GraphQLView
 from flask_sqlalchemy import SQLAlchemy
 
 from config import config
@@ -24,7 +25,6 @@ def create_app(config_name):
     db.init_app(app)
 
     from invmanager.schema import schema
-    from invmanager.auth.views import CustomGraphQLView
-    app.add_url_rule('/graphql', view_func=CustomGraphQLView.as_view('graphql', schema=schema, graphiql=app.debug))
+    app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=app.debug))
 
     return app
