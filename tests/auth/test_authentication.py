@@ -1,5 +1,5 @@
 import datetime
-from unittest import TestCase, mock
+from unittest import TestCase, mock, skip
 import uuid
 
 from flask import Request, Response
@@ -119,7 +119,9 @@ class TestAuthentication(TestCase):
 
 class TestCookieAuthMethods(TestCase):
     def setUp(self):
-        self.app = create_app('development')
+        self.app = create_app('testing')
+        self.app.config['AUTH_METHOD'] = 'COOKIE'
+
         self.context = self.app.app_context()
         self.context.push()
         db.create_all()
@@ -182,17 +184,16 @@ class TestHeaderAuthMethod(TestCase):
         db.drop_all()
         self.context.pop()
 
-    def test_get_cookie(self):
+    def test_get_header(self):
         token = self.user.generate_token()
 
         request = Request({'HTTP_AUTHORIZATION': token})
-        # request.headers.extend({'Authorization': token})
 
         t = get_token(request)
 
         self.assertEqual(bytes(t, encoding='utf8'), token)
 
-    def test_set_cookie(self):
+    def test_set_header(self):
         token = self.user.generate_token()
 
         response = Response()
