@@ -128,13 +128,14 @@ class Group(Model):
         self.permissions.remove(permission)
 
     @staticmethod
-    def create_default_groups():
+    def create_default_groups() -> bool:
         for group in ['user', 'superuser', 'admin']:
             g = Group()
             g.name = group
             db.session.add(g)
 
         db.session.commit()
+        return True
 
 
 class User(db.Model):
