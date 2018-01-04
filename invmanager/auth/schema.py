@@ -1,8 +1,9 @@
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
 
+from flask import after_this_request
+
 from .authentication import check_token, get_token, set_token
-from .decorators import after_request
 from .exceptions import AuthorisationError
 from .models import User, db
 
@@ -69,9 +70,10 @@ class Login(graphene.Mutation):
             if u.verify_password(password):
                 token = u.generate_token()
 
-                @after_request
+                @after_this_request
                 def defer_set_token(response):
                     set_token(response, token)
+                    return response
 
                 return Login(user=u)
         raise Exception("User / Password Combination")

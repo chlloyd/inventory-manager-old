@@ -1,15 +1,14 @@
 from types import FunctionType
 from unittest import TestCase
 
-from flask import g
+from flask import after_this_request
 
 from invmanager import create_app
-from invmanager.auth.decorators import after_request
 
 
-class TestAuthentication(TestCase):
+class TestDecorators(TestCase):
     def setUp(self):
-        self.app = create_app('development')
+        self.app = create_app('testing')
         self.context = self.app.app_context()
         self.context.push()
 
@@ -18,23 +17,16 @@ class TestAuthentication(TestCase):
     def tearDown(self):
         self.context.pop()
 
-    def test_after_request(self):
-        called = False
+    def test_after_request_processing(self):
+        @self.app.route('/')
+        def index():
+            @after_this_request
+            def foo(response):
+                response.headers['X-Foo'] = 'a header'
+                return response
 
-        def view():
+            return 'Test'
 
-            @after_request
-            def f(_):
-                global called
-                called = True
-            return ""
-
-        self.app.add_url_rule('/', view_func=view)
-
-        self.client.get('/')
-
-        self.assertGreater(len(g.get('after_request_callbacks')), 0)
-
-        func = g.get('after_request_callbacks')[0]
-
-        self.assertIsInstance(func, FunctionType)
+        resp = self.client.get('/')
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.headers['X-Foo'], 'a header')
