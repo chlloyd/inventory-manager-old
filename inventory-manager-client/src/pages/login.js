@@ -25,7 +25,6 @@ class Login extends Component {
 
     handleLoginButton(event){
         var apiBaseUrl = "http://localhost:5000/api/";
-        var self = this;
         var payload= {
             "email": this.state.email,
             "password": this.state.password
