@@ -6,7 +6,6 @@ class Empty extends Component {
         return (
             <AppBar
                 title="Inventory Manager"
-
                 iconClassNameRight="muidocs-icon-navigation-expand-more"
             />
         );
