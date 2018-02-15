@@ -9,7 +9,6 @@ const styles = {
     },
 };
 
-
 class Login extends Component {
     render() {
         return (
