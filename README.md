@@ -4,12 +4,12 @@
 1. Authentication
   - [ ] Provides mechanism for authentication. Login & User registration. Registration requires an administrator to be logged in to create a new user. Uses GraphQL.
   - Reading:
-    - (GraphQL Tutorial)[https://www.howtographql.com/basics/0-introduction/]
-    - (JS Stack Tutorial)[https://github.com/verekia/js-stack-from-scratch]
-    - (Material UI Getting Started)[http://www.material-ui.com/#/get-started]
+    - [GraphQL Tutorial](https://www.howtographql.com/basics/0-introduction/)
+    - [JS Stack Tutorial](https://github.com/verekia/js-stack-from-scratch)
+    - [Material UI Getting Started](http://www.material-ui.com/#/get-started)
   - [x] Models (Users, groups, roles)
   - [ ] Setup PWA
-  - [ ] Login page
+  - [ ] Login page [Material UI Login Page Tutorial](https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede)
   - [ ] Deploy to Heroku (or local install)
 2. Items
   - [ ] Models (Categories and items)
@@ -18,6 +18,7 @@
   - [ ] Item & Category Pages
   - [ ] Graphs
   - [ ] HTML description builder
+  - [ ] Title and description translations to other languages. 
 3. Images
   - [ ] Different Cloud image stores
     - OneDrive
@@ -50,3 +51,4 @@
   - Import Data
 - Marketing Emails
 - Backup
+- Franking/postage stamp printing
