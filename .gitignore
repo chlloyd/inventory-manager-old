@@ -295,3 +295,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,pydev,linux,macos,python,windows,pycharm
+
+# Database
+*.db
+
+# All IntelliJ Files
+.idea
