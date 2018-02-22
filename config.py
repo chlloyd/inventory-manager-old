@@ -56,7 +56,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.getenv('INV_DEV_DATABASE', 'sqlite:///' +
                                      os.path.join(basedir,
-                                                  'data-dev.sqlite'))
+                                                  'data-dev.db'))
 
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
@@ -76,7 +76,7 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv('INV_TEST_DATABASE',
                                      'sqlite:///' +
                                      os.path.join(basedir,
-                                                  'data-test.sqlite'))
+                                                  'data-test.db'))
 
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
