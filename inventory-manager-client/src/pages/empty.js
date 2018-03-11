@@ -12,6 +12,7 @@ class Empty extends Component {
     }
 }
 
+
 export default Empty;
 
 
