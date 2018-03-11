@@ -1,29 +1,58 @@
 import React, {Component} from 'react';
 import AppBar from 'material-ui/AppBar';
+import IconMenu from 'material-ui/IconMenu'
 
-class Empty extends Component {
-    render() {
-        return (
-            <AppBar
-                title="Inventory Manager"
-                iconClassNameRight="muidocs-icon-navigation-expand-more"
-            />
-        );
-    }
+const styles = {
+    title: {
+        cursor: 'pointer'
+    },
+};
+
+function titleclick() {
+//    Go to home page
 }
 
-export default Empty;
+class leftappbarbutton {
+    render() {
+
+        inner = (
+            <IconButton>
+                <MoreVertIcon />
+            </IconButton>);
 
 
-// <IconMenu
-//     {...props}
-//     iconButtonElement={
-//       <IconButton><MoreVertIcon /></IconButton>
-//     }
-//     targetOrigin={{horizontal: 'right', vertical: 'top'}}
-//     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-//   >
-//     <MenuItem primaryText="Refresh" />
-//     <MenuItem primaryText="Help" />
-//     <MenuItem primaryText="Sign out" />
-//   </IconMenu>
+        return (
+            <IconMenu
+                iconButtonElement={inner}
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}>
+                <MenuItem primaryText="Refresh" />
+                <MenuItem primaryText="Help" />
+                <MenuItem primaryText="Sign out" />
+            </IconMenu>
+                )
+
+                {/*render() {*/}
+                {/*return (*/}
+                {/*<AppBar title={<span style={styles.title}>Inventory Manager</span>}*/}
+                {/*onTitleClick={titleclick}*/}
+                {/*onLeftIconButtonClick={leftappbarbutton}/>*/}
+                {/*);*/}
+                }
+                }
+
+                {/*export default Empty;*/}
+
+
+                {/*    <IconMenu*/}
+                {/*     {...props}*/}
+                {/*     iconButtonElement={*/}
+                {/*       <IconButton><MoreVertIcon /></IconButton>*/}
+                {/*     }*/}
+                {/*     targetOrigin={{horizontal: 'right', vertical: 'top'}}*/}
+                {/*     anchorOrigin={{horizontal: 'right', vertical: 'top'}}*/}
+                {/*   >*/}
+                {/*     <MenuItem primaryText="Refresh" />*/}
+                {/*     <MenuItem primaryText="Help" />*/}
+                {/*     <MenuItem primaryText="Sign out" />*/}
+                {/*   </IconMenu>*/}
