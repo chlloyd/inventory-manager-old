@@ -12,8 +12,6 @@ import appRoutes from "routes/app.jsx";
 
 import appStyle from "variables/styles/appStyle.jsx";
 
-import image from "assets/img/sidebar-2.jpg";
-
 const switchRoutes = (
     <Switch>
         {appRoutes.map((prop, key) => {
@@ -53,9 +51,8 @@ class App extends React.Component {
             <div className={classes.wrapper}>
                 <Sidebar
                     routes={appRoutes}
-                    logoText={"Creative Tim"}
+                    logoText={"Inventory Manager"}
                     // logo={logo}
-                    image={image}
                     handleDrawerToggle={this.handleDrawerToggle}
                     open={this.state.mobileOpen}
                     color="blue"
