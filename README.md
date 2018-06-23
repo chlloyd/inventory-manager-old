@@ -8,8 +8,8 @@
     - [JS Stack Tutorial](https://github.com/verekia/js-stack-from-scratch)
     - [Material UI Getting Started](http://www.material-ui.com/#/get-started)
   - [ ] Models (Users, groups, roles)
-  - [ ] Setup PWA
-  - [ ] Login page [Material UI Login Page Tutorial](https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede)
+  - [x] Setup PWA
+  - [x] Login page [Material UI Login Page Tutorial](https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede)
   - [ ] Deploy to Heroku (or local install)
 2. Items
   - [ ] Models (Categories and items)
