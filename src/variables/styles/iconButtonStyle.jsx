@@ -2,7 +2,7 @@
 // // // IconButton styles
 // #############################
 
-import {dangerColor, grayColor, infoColor, primaryColor, roseColor, successColor, warningColor} from "variables/styles";
+import {dangerColor, grayColor, infoColor, primaryColor, roseColor, successColor, warningColor} from "../styles";
 
 const iconButtonStyle = {
     button: {

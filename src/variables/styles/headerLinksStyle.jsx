@@ -2,7 +2,7 @@
 // // // HeaderLinks styles
 // #############################
 
-import {dangerColor, defaultFont, primaryBoxShadow, primaryColor} from "variables/styles";
+import {dangerColor, defaultFont, primaryBoxShadow, primaryColor} from "../styles";
 
 const headerLinksStyle = theme => ({
     popperClose: {

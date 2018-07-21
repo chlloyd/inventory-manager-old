@@ -3,7 +3,7 @@ import {Button, withStyles} from "material-ui";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-import buttonStyle from "variables/styles/buttonStyle";
+import buttonStyle from "../../variables/styles/buttonStyle";
 
 function RegularButton({...props}) {
     const {

@@ -2,7 +2,7 @@ import React from "react";
 import {Card, CardActions, CardContent, CardHeader, Typography, withStyles} from "material-ui";
 import PropTypes from "prop-types";
 
-import statsCardStyle from "variables/styles/statsCardStyle";
+import statsCardStyle from "../../variables/styles/statsCardStyle";
 
 function StatsCard({...props}) {
     const {

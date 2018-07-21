@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import {Card, CardContent, CardHeader, Tab, Tabs, Typography, withStyles} from "material-ui";
 import {BugReport, Cloud, Code} from "material-ui-icons";
 
-import {Tasks} from "components";
+import {Tasks} from "../../components";
 
-import {bugs, server, website} from "variables/general";
+import {bugs, server, website} from "../../variables/general";
 
-import tasksCardStyle from "variables/styles/tasksCardStyle";
+import tasksCardStyle from "../../variables/styles/tasksCardStyle";
 
 class TasksCard extends React.Component {
     state = {

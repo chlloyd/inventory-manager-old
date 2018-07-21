@@ -6,11 +6,11 @@ import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import {withStyles} from "material-ui";
 
-import {Footer, Header, Sidebar} from "components";
+import {Footer, Header, Sidebar} from "../../components";
 
-import appRoutes from "routes/app.jsx";
+import appRoutes from "../../routes/app.jsx";
 
-import appStyle from "variables/styles/appStyle.jsx";
+import appStyle from "../../variables/styles/appStyle.jsx";
 
 const switchRoutes = (
     <Switch>

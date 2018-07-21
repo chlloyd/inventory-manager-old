@@ -2,7 +2,7 @@
 // // // App styles
 // #############################
 
-import {container, drawerWidth, transition} from "variables/styles.jsx";
+import {container, drawerWidth, transition} from "../styles.jsx";
 
 const appStyle = theme => ({
     wrapper: {

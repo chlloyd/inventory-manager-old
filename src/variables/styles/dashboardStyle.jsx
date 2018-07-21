@@ -2,7 +2,7 @@
 // // // Dashboard styles
 // #############################
 
-import {successColor} from "variables/styles";
+import {successColor} from "../styles";
 
 const dashboardStyle = {
     successText: {

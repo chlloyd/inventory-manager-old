@@ -3,7 +3,7 @@ import {Card, CardActions, CardContent, CardHeader, withStyles} from "material-u
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-import regularCardStyle from "variables/styles/regularCardStyle";
+import regularCardStyle from "../../variables/styles/regularCardStyle";
 
 function RegularCard({...props}) {
     const {

@@ -4,7 +4,7 @@ import {Menu} from "material-ui-icons";
 import {AppBar, Button, Hidden, IconButton, Toolbar, withStyles} from "material-ui";
 import cx from "classnames";
 
-import headerStyle from "variables/styles/headerStyle.jsx";
+import headerStyle from "../../variables/styles/headerStyle.jsx";
 
 import HeaderLinks from "./HeaderLinks";
 

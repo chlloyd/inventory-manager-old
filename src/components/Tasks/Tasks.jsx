@@ -4,7 +4,7 @@ import {Check, Close, Edit} from "material-ui-icons";
 
 import PropTypes from "prop-types";
 
-import tasksStyle from "variables/styles/tasksStyle.jsx";
+import tasksStyle from "../../variables/styles/tasksStyle.jsx";
 
 class Tasks extends React.Component {
     state = {

@@ -2,7 +2,7 @@
 // // // CustomInput styles
 // #############################
 
-import {dangerColor, defaultFont, primaryColor, successColor} from "variables/styles";
+import {dangerColor, defaultFont, primaryColor, successColor} from "../styles";
 
 const customInputStyle = {
     disabled: {

@@ -1,7 +1,7 @@
 import React from "react";
 import {withStyles} from "material-ui";
 
-import {Danger, Info, Muted, P, Primary, Quote, RegularCard, Small, Success, Warning} from "components";
+import {Danger, Info, Muted, P, Primary, Quote, RegularCard, Small, Success, Warning} from "../../components";
 
 const style = {
     typo: {

@@ -2,7 +2,7 @@
 // // // Icons styles
 // #############################
 
-import {boxShadow} from "variables/styles";
+import {boxShadow} from "../styles";
 
 const iconsStyle = {
     iframe: {

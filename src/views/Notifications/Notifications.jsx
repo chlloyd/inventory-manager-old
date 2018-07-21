@@ -2,7 +2,7 @@ import React from "react";
 import {Grid} from "material-ui";
 import {AddAlert} from "material-ui-icons";
 
-import {A, Button, ItemGrid, P, RegularCard, Small, Snackbar, SnackbarContent} from "components";
+import {A, Button, ItemGrid, P, RegularCard, Small, Snackbar, SnackbarContent} from "../../components";
 
 class Notifications extends React.Component {
     constructor(props) {

@@ -2,7 +2,7 @@ import React from "react";
 import {withStyles} from "material-ui";
 import PropTypes from "prop-types";
 
-import typographyStyle from "variables/styles/typographyStyle.jsx";
+import typographyStyle from "../../variables/styles/typographyStyle.jsx";
 
 function Quote({...props}) {
     const {classes, text, author} = props;

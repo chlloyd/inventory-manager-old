@@ -2,7 +2,7 @@
 // // // ProfileCard styles
 // #############################
 
-import {boxShadow, card, defaultFont, grayColor} from "variables/styles";
+import {boxShadow, card, defaultFont, grayColor} from "../styles";
 
 const profileCardStyle = {
     card: {

@@ -2,7 +2,7 @@
 // // // Typography styles
 // #############################
 
-import {dangerColor, defaultFont, infoColor, primaryColor, successColor, warningColor} from "variables/styles";
+import {dangerColor, defaultFont, infoColor, primaryColor, successColor, warningColor} from "../styles";
 
 const typographyStyle = {
     defaultFontStyle: {

@@ -16,11 +16,11 @@ import {
 } from "material-ui-icons";
 import {Grid, withStyles} from "material-ui";
 
-import {ChartCard, ItemGrid, RegularCard, StatsCard, Table, TasksCard} from "components";
+import {ChartCard, ItemGrid, RegularCard, StatsCard, Table, TasksCard} from "../../components";
 
-import {completedTasksChart, dailySalesChart, emailsSubscriptionChart} from "variables/charts";
+import {completedTasksChart, dailySalesChart, emailsSubscriptionChart} from "../../variables/charts";
 
-import dashboardStyle from "variables/styles/dashboardStyle";
+import dashboardStyle from "../../variables/styles/dashboardStyle";
 
 class Dashboard extends React.Component {
     state = {

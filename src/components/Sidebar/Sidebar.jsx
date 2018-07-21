@@ -4,9 +4,9 @@ import {NavLink} from "react-router-dom";
 import cx from "classnames";
 import {Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText, withStyles} from "material-ui";
 
-import {HeaderLinks} from "components";
+import {HeaderLinks} from "../../components";
 
-import sidebarStyle from "variables/styles/sidebarStyle.jsx";
+import sidebarStyle from "../../variables/styles/sidebarStyle.jsx";
 
 const Sidebar = ({...props}) => {
     // verifies if routeName is the one active (in browser input)
@@ -14,7 +14,7 @@ const Sidebar = ({...props}) => {
         return props.location.pathname.indexOf(routeName) > -1 ? true : false;
     }
 
-    const {classes, color, logo, image, logoText, routes} = props;
+    const {classes, color, logo, logoText, routes} = props;
     var links = (
         <List className={classes.list}>
             {routes.map((prop, key) => {

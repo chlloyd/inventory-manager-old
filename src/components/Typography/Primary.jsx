@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {withStyles} from "material-ui";
 
-import typographyStyle from "variables/styles/typographyStyle.jsx";
+import typographyStyle from "../../variables/styles/typographyStyle.jsx";
 
 function Primary({...props}) {
     const {classes, children} = props;

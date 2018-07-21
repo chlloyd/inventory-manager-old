@@ -2,7 +2,7 @@ import React from "react";
 import {IconButton, withStyles} from "material-ui";
 import PropTypes from "prop-types";
 
-import iconButtonStyle from "variables/styles/iconButtonStyle";
+import iconButtonStyle from "../../variables/styles/iconButtonStyle";
 
 function IconCustomButton({...props}) {
     const {classes, color, children, customClass, ...rest} = props;

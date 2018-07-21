@@ -2,7 +2,7 @@
 // // // Footer styles
 // #############################
 
-import {container, defaultFont, primaryColor} from "variables/styles";
+import {container, defaultFont, primaryColor} from "../styles";
 
 const footerStyle = {
     block: {

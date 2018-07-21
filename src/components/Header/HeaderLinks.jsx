@@ -4,9 +4,9 @@ import {Manager, Popper, Target} from "react-popper";
 import {ClickAwayListener, Grow, Hidden, IconButton, MenuItem, MenuList, Paper, withStyles} from "material-ui";
 import {Dashboard, Notifications, Person, Search} from "material-ui-icons";
 
-import {CustomInput, IconButton as SearchButton} from "components";
+import {CustomInput, IconButton as SearchButton} from "../../components";
 
-import headerLinksStyle from "variables/styles/headerLinksStyle";
+import headerLinksStyle from "../../variables/styles/headerLinksStyle";
 
 class HeaderLinks extends React.Component {
     state = {

@@ -2,7 +2,7 @@
 // // // TasksCard styles
 // #############################
 
-import {card, cardHeader, defaultFont, primaryBoxShadow} from "variables/styles";
+import {card, cardHeader, defaultFont, primaryBoxShadow} from "../styles";
 
 const tasksCardStyle = theme => ({
     card,

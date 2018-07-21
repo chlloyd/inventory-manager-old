@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid} from "material-ui";
 
-import {ItemGrid, RegularCard, Table} from "components";
+import {ItemGrid, RegularCard, Table} from "../../components";
 
 function TableList({...props}) {
     return (

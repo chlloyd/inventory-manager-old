@@ -1,9 +1,9 @@
 import React from "react";
 import {Grid, InputLabel} from "material-ui";
 
-import {Button, CustomInput, ItemGrid, ProfileCard, RegularCard} from "components";
+import {Button, CustomInput, ItemGrid, ProfileCard, RegularCard} from "../../components";
 
-import avatar from "assets/img/faces/marc.jpg";
+import avatar from "../../assets/img/faces/marc.jpg";
 
 function UserProfile({...props}) {
     return (

@@ -13,7 +13,7 @@ import {
     successColor,
     transition,
     warningColor
-} from "variables/styles";
+} from "../styles";
 
 const sidebarStyle = theme => ({
     drawerPaper: {

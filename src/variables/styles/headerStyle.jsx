@@ -11,7 +11,7 @@ import {
     primaryColor,
     successColor,
     warningColor
-} from "variables/styles";
+} from "../styles";
 
 const headerStyle = theme => ({
     appBar: {

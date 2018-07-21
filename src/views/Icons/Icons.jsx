@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Grid, Hidden, withStyles} from "material-ui";
 
-import {A, ItemGrid, P, RegularCard} from "components";
+import {A, ItemGrid, P, RegularCard} from "../../components";
 
-import iconsStyle from "variables/styles/iconsStyle";
+import iconsStyle from "../../variables/styles/iconsStyle";
 
 function Icons({...props}) {
     return (
