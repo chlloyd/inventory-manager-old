@@ -66,6 +66,86 @@ const appRoutes = [
         icon: Notifications,
         component: Items
     },
+    {
+        sidebarName: "Items",
+        navbarName: "Items",
+        icon: ContentPaste,
+        // component: TableList,
+        children: [
+            {
+                path: "/table2/test",
+                sidebarName: "All",
+                navbarName: "All",
+                icon: Notifications,
+                component: TableList,
+            },
+            {
+                path: "/table2/test",
+                sidebarName: "Active",
+                navbarName: "Active",
+                icon: Notifications,
+                component: TableList,
+            },
+                        {
+                path: "/table2/test",
+                sidebarName: "Not Active",
+                navbarName: "Not Active",
+                icon: Notifications,
+                component: TableList,
+            },
+                        {
+                path: "/table2/test",
+                sidebarName: "Drafts",
+                navbarName: "Drafts",
+                icon: Notifications,
+                component: TableList,
+            },
+        ]
+    },
+    {
+        sidebarName: "Sales",
+        navbarName: "Sales",
+        icon: ContentPaste,
+        // component: TableList,
+        children: [
+            {
+                path: "/table2/test",
+                sidebarName: "Sold",
+                navbarName: "Sold",
+                icon: Notifications,
+                component: TableList,
+            },
+            {
+                path: "/table2/test",
+                sidebarName: "Awaiting Postage",
+                navbarName: "Awaiting Postage",
+                icon: Notifications,
+                component: TableList,
+            },
+                        {
+                path: "/table2/test",
+                sidebarName: "Awaiting Payment",
+                navbarName: "Awaiting Payment",
+                icon: Notifications,
+                component: TableList,
+            },
+                        {
+                path: "/table2/test",
+                sidebarName: "Paid and Dispatched",
+                navbarName: "Sold",
+                icon: Notifications,
+                component: TableList,
+            },
+                        {
+                path: "/table2/test",
+                sidebarName: "Returns",
+                navbarName: "Returns",
+                icon: Notifications,
+                component: TableList,
+            },
+        ]
+    },
+
     {redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect"}
 ];
 

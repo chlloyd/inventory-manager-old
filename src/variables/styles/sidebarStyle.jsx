@@ -140,6 +140,16 @@ const sidebarStyle = theme => ({
         backgroundColor: "transparent",
         ...defaultFont
     },
+    nestedItemLink: {
+        width: 'auto',
+        transition: "all 300ms linear",
+        margin: "10px 15px 0",
+        borderRadius: "3px",
+        position: "relative",
+        display: "block",
+        backgroundColor: "transparent",
+        ...defaultFont,
+    },
     itemIcon: {
         width: "24px",
         height: "30px",
@@ -149,7 +159,24 @@ const sidebarStyle = theme => ({
         verticalAlign: "middle",
         color: "rgba(255, 255, 255, 0.8)"
     },
+    nestedItemIcon: {
+        width: "24px",
+        height: "30px",
+        float: "left",
+        marginRight: "15px",
+        // paddingRight: 0,
+        textAlign: "center",
+        verticalAlign: "middle",
+        color: "rgba(255, 255, 255, 0.8)"
+    },
     itemText: {
+        ...defaultFont,
+        margin: "0",
+        lineHeight: "30px",
+        fontSize: "14px",
+        color: "#FFFFFF"
+    },
+    nestedItemText: {
         ...defaultFont,
         margin: "0",
         lineHeight: "30px",
