@@ -6,6 +6,7 @@ import Icons from "../views/Icons/Icons.jsx";
 import Maps from "../views/Maps/Maps.jsx";
 import NotificationsPage from "../views/Notifications/Notifications.jsx";
 import Items from "../views/Items/Items.jsx";
+import Login from "../views/Login/Login.jsx";
 
 import {BubbleChart, ContentPaste, Dashboard, LibraryBooks, LocationOn, Notifications, Person} from "material-ui-icons";
 
@@ -30,6 +31,13 @@ const appRoutes = [
         navbarName: "Table List",
         icon: ContentPaste,
         component: TableList
+    },
+    {
+        path: "/login",
+        sidebarName: "login",
+        navbarName: "Login",
+        icon: ContentPaste,
+        component: Login
     },
     {
         path: "/typography",
